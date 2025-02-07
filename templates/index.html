@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Image Gallery</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+</head>
+<body>
+    <div class="gallery">
+        {% for image in images %}
+            <div class="image-container">
+                <img class="thumbnail lazyload" 
+                    src="{{ url_for('static', path='/images/thumbnails/' + image) }}" 
+                    data-src = "{{ url_for('static', path='/images/hd1080/' + image) }}"
+                    onclick="openModal(this.src,'static/images/full/{{ image }}')">
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modal-img">
+        <a id="download-link" download>
+            <button id='save' style="font-size:24px">Save</button>
+        </a>
+    </div>
+    <script src="{{ url_for('static', path='/js/scripts.js') }}"></script>
+</body>
+</html>
