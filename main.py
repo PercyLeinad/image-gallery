@@ -1,34 +1,106 @@
-from fastapi import FastAPI, Request
+from pathlib import Path
+from fastapi import FastAPI, Query, Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-import os
+from fastapi.middleware.cors import CORSMiddleware
+import re
 
 app = FastAPI()
 
-# Mount static files (CSS, JS, Images)
+# Mount static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# Allow CORS for all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Define directories
+BASE_DIR = Path("static/images")
+THUMB_DIR = BASE_DIR / "thumbnails"
+HD_DIR = BASE_DIR / "hd1080"
+FULL_DIR = BASE_DIR / "full"
+
+# Ensure directories exist
+FULL_DIR.mkdir(parents=True, exist_ok=True)
+THUMB_DIR.mkdir(parents=True, exist_ok=True)
+HD_DIR.mkdir(parents=True, exist_ok=True)
+
+# Load images from the full directory
+image_data = []
+for image in FULL_DIR.glob("*.jpg"):
+    match = re.search(r"(\d+)\.jpg", image.name)  # Allow any number of digits
+    if match:
+        image_id = match.group(1)
+        image_data.append({
+            "id": image_id,
+            "urls": {
+                "full": f"/{FULL_DIR}/{image.name}",
+                "thumb": f"/{THUMB_DIR}/{image.name}",
+                "fhd": f"/{HD_DIR}/{image.name}",
+            },
+        })
+
+# Initialize Jinja2 templates
 templates = Jinja2Templates(directory="templates")
 
-# Directories
-IMAGE_DIR = "static/images"
-THUMB_DIR = os.path.join(IMAGE_DIR, "thumbnails")
-HD_DIR = os.path.join(IMAGE_DIR, "hd1080")
-FULL_DIR = os.path.join(IMAGE_DIR, "full")
+@app.get("/")
+async def home(request: Request,
+    page: int = Query(1, alias="page", ge=1),
+    per_page: int = Query(24, alias="per_page", ge=1)  # No max limit in Query
+):
+    """Fetch paginated image data from the gallery API."""
+    
+    # Reset per_page to 20 if it exceeds the limit
+    per_page = min(per_page, 24)
 
-@app.get("/", response_class=HTMLResponse)
-async def gallery(request: Request):
-    images = os.listdir(FULL_DIR)  # List all full-size images
-    return templates.TemplateResponse("index.html", {"request": request, "images": images})
+    total = len(image_data)
+    total_pages = (total // per_page) + (1 if total % per_page > 0 else 0)
 
-@app.get("/image/{size}/{filename}")
-async def get_image(size: str, filename: str):
-    """Serve images based on requested size (thumbnail, 1080p, full)."""
-    if size == "thumbnail":
-        return StaticFiles(directory=THUMB_DIR).lookup_path(filename)
-    elif size == "hd1080":
-        return StaticFiles(directory=HD_DIR).lookup_path(filename)
-    elif size == "full":
-        return StaticFiles(directory=FULL_DIR).lookup_path(filename)
-    return {"error": "Invalid size"}
+    start = (page - 1) * per_page
+    end = start + per_page
+    results = image_data[start:end]
+    """Render the homepage with a gallery of images."""
+    return templates.TemplateResponse("index.html", {"request": request,                                        
+        "page":page , 
+        "total": total,
+        "total_pages": total_pages,
+        "per_page": per_page,
+        "results": [{"id": img["id"], "urls": img["urls"]} for img in results],
+        }
+    )
+
+
+@app.get("/gallery/api/")
+async def get_gallery_api(
+    page: int = Query(1, alias="page", ge=1),
+    per_page: int = Query(24, alias="per_page", ge=1)  # No max limit in Query
+):
+    """Fetch paginated image data from the gallery API."""
+    
+    # Reset per_page to 20 if it exceeds the limit
+    per_page = min(per_page, 24)
+
+    total = len(image_data)
+    total_pages = (total // per_page) + (1 if total % per_page > 0 else 0)
+
+    start = (page - 1) * per_page
+    end = start + per_page
+    results = image_data[start:end]
+
+    return {
+        "total": total,
+        "total_pages": total_pages,
+        "per_page": per_page,
+        "results": [{"id": img["id"], "urls": img["urls"]} for img in results],
+    }
+
+
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0',debug=True)

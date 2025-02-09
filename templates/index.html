@@ -4,28 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastAPI Image Gallery</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <div class="gallery">
-        {% for image in images %}
-            <div class="image-container">
-                <img class="thumbnail lazyload" 
-                    src="{{ url_for('static', path='/images/thumbnails/' + image) }}" 
-                    data-src = "{{ url_for('static', path='/images/hd1080/' + image) }}"
-                    onclick="openModal(this.src,'static/images/full/{{ image }}')">
-            </div>
-        {% endfor %}
-    </div>
+    <div class="wrapper">
+        <div class="header">
+            <a href="/"><img src="/static/logo.png" alt="Logo" class="logo-img"></a>
+            <center><h1>Image Gallery</h1></center>
+        </div>
 
-    <!-- Lightbox Modal -->
-    <div id="modal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="modal-img">
-        <a id="download-link" download>
-            <button id='save' style="font-size:24px">Save</button>
-        </a>
+        <div class="gallery" id="main">
+            <!-- images here -->
+                {% for image in results %}
+                    <div class="image-container">
+                        <img src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}"  alt="Photo"
+                        onclick="openModal(this.src,'{{ image.urls.full }}')">
+                    </div>
+                {% endfor %}
+            </div>
+
+        <!-- Lightbox Modal -->
+        <div id="modal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modal-img">
+            <a id="download-link" download>
+                <button id='save'><i class="fa fa-download"></i> Download</button>
+            </a>
+        </div>
+        <!-- pagination -->
+        <div class="pagination">
+            {% if page > 1 %}
+            <a href="{{ request.url_for('home') }}?page={{ page-1 }}">
+                <button id="btnPrevious">&larr; </button>
+            </a>
+            {% endif %}
+
+            <span id="page">Page {{ page }} of {{ total_pages }}</span>
+                    
+            {% if page < total_pages %}
+            <a href="{{ request.url_for('home') }}?page={{ page+1 }}">
+                <button id="btnNext">&rarr;</button>
+            </a>
+            {% endif %}
+        </div>
+        <div class="container">
+            <div class="footer">
+                <h5><strong><center>&copy;2025</strong></center></h5>
+            </div>
+        </div>
     </div>
-    <script src="{{ url_for('static', path='/js/scripts.js') }}"></script>
+    <script src="/static/js/scripts.js"></script>
 </body>
 </html>
