@@ -54,3 +54,38 @@ function closeModal() {
     document.getElementById("modal").style.display = "none";
     document.body.classList.remove('modal-open');
 }
+
+
+function applySavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        setTheme(savedTheme);
+    } else {
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setTheme(prefersDarkScheme ? 'dark' : 'light');
+    }
+}
+
+
+const themeToggleBtn = document.getElementById('theme-toggle');
+
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+}
+
+function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+}
+
+function applySavedTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+}
+
+themeToggleBtn.addEventListener('click', toggleTheme);
+
+// Apply the saved theme on initial load
+applySavedTheme();
