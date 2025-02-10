@@ -75,7 +75,7 @@ async def home(request: Request,
     )
 
 
-@app.get("/gallery/api/")
+@app.get("/api/")
 async def get_gallery_api(
     page: int = Query(1, alias="page", ge=1),
     per_page: int = Query(24, alias="per_page", ge=1)  # No max limit in Query
