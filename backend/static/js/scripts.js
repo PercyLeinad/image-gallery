@@ -1,25 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function() {
-
-//     fetch('http://127.0.0.1:8000/gallery/api/?per_page=18')
-//         .then(response => response.json())
-//         .then(data => {
-//             data.results.forEach(element => {
-//                 const main = document.getElementById('main')
-//                 const itemdiv = document.createElement('div')
-//                 itemdiv.classList = 'image-container'
-//                 const img = document.createElement('img');
-//                 img.src = element['urls'].full
-//                 img.dataset.src = element['urls'].thumb
-//                 img.classList = 'image'
-//                 img.alt = 'Photo'
-//                 itemdiv.appendChild(img)
-//                 main.appendChild(itemdiv)      
-//             })
-//         })
-
-
-// });
-
 const imgsobserver = document.querySelectorAll('.image-container img')
 
 const options = {
@@ -51,6 +29,7 @@ function applySavedTheme() {
         setTheme(prefersDarkScheme ? 'dark' : 'light');
     }
 }
+applySavedTheme()
 
 const themeToggleBtn = document.getElementById('theme-toggle');
 
@@ -71,6 +50,3 @@ function applySavedTheme() {
 }
 
 themeToggleBtn.addEventListener('click', toggleTheme);
-
-// Apply the saved theme on initial load
-applySavedTheme();

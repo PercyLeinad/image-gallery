@@ -11,9 +11,8 @@
     href="/static/favicon-32x32.png"/>  
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="/static/css/styles.css">
-
  
-    <div class="container">
+    <div class="toggle">
         <button id="theme-toggle">Toggle Theme</button>
     </div>
    
@@ -31,10 +30,10 @@
                 {% for image in results %}
                     <div class="image-container">
                         <img src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo"
-                        onclick="window.open('photo/image_view.html?image={{ image.urls.fhd }}')">
+                        onclick="window.location.href = 'photo/image_view.html?image={{ image.urls.full }}'">
                     </div>
                 {% endfor %}
-            </div>
+        </div>
 
         <!-- pagination -->
         <div class="pagination">
@@ -52,10 +51,8 @@
             </a>
             {% endif %}
         </div>
-        <div class="container">
-            <div class="footer">
-                <h5><strong><center>&copy;2025</strong></center></h5>
-            </div>
+        <div class="footer">
+            <h5><strong><center>&copy;2025</strong></center></h5>
         </div>
     </div>
     <script src="photo/js/image_view.js"></script>
