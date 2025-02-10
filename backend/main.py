@@ -8,11 +8,11 @@ import re
 app = FastAPI()
 
 # Define base paths
-BASE_DIR = Path(__file__).resolve().parent  # backend/
-FRONTEND_DIR = BASE_DIR.parent / "frontend"
+BACKEND_DIR = Path(__file__).resolve().parent  # backend/
+FRONTEND_DIR = BACKEND_DIR.parent / "frontend"
 
 # Mount static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory=BACKEND_DIR / "static"), name="static")
 
 # Allow CORS for all origins
 app.add_middleware(
