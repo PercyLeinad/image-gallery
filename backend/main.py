@@ -7,6 +7,10 @@ import re
 
 app = FastAPI()
 
+# Define base paths
+BASE_DIR = Path(__file__).resolve().parent  # backend/
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
+
 # Mount static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -46,7 +50,7 @@ for image in FULL_DIR.glob("*.jpg"):
         })
 
 # Initialize Jinja2 templates
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory=FRONTEND_DIR / "templates")
 
 @app.get("/")
 async def home(request: Request,
@@ -99,8 +103,3 @@ async def get_gallery_api(
         "results": [{"id": img["id"], "urls": img["urls"]} for img in results],
     }
 
-
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0',debug=True)
