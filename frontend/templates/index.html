@@ -30,20 +30,12 @@
             <!-- images here -->
                 {% for image in results %}
                     <div class="image-container">
-                        <img src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}"  alt="Photo"
-                        onclick="openModal(this.src,'{{ image.urls.full }}')">
+                        <img src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo"
+                        onclick="window.open('photo/image_view.html?image={{ image.urls.fhd }}')">
                     </div>
                 {% endfor %}
             </div>
 
-        <!-- Lightbox Modal -->
-        <div id="modal" class="modal">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img class="modal-content" id="modal-img">
-            <a id="download-link" download>
-                <button id='save'><i class="fa fa-download"></i> Download</button>
-            </a>
-        </div>
         <!-- pagination -->
         <div class="pagination">
             {% if page > 1 %}
@@ -66,6 +58,7 @@
             </div>
         </div>
     </div>
+    <script src="photo/js/image_view.js"></script>
     <script src="/static/js/scripts.js"></script>
 </body>
 </html>
