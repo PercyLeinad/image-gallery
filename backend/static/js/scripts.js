@@ -42,20 +42,6 @@ imgsobserver.forEach(im =>{
 observer.observe(im)
 })
 
-
-function openModal(imgSrc, fullImgSrc) {
-    document.getElementById("modal").style.display = "block";
-    document.body.classList.add("modal-open");
-    document.getElementById("modal-img").src = imgSrc;
-    document.getElementById("download-link").href = fullImgSrc;
-}
-
-function closeModal() {
-    document.getElementById("modal").style.display = "none";
-    document.body.classList.remove('modal-open');
-}
-
-
 function applySavedTheme() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -65,7 +51,6 @@ function applySavedTheme() {
         setTheme(prefersDarkScheme ? 'dark' : 'light');
     }
 }
-
 
 const themeToggleBtn = document.getElementById('theme-toggle');
 

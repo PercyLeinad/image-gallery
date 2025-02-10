@@ -13,7 +13,7 @@ FRONTEND_DIR = BACKEND_DIR.parent / "frontend"
 
 # Mount static files
 app.mount("/static", StaticFiles(directory=BACKEND_DIR / "static"), name="static")
-
+app.mount("/photo", StaticFiles(directory=FRONTEND_DIR), name="photo")
 # Allow CORS for all origins
 app.add_middleware(
     CORSMiddleware,

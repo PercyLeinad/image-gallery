@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #111;
+    color: rgb(0, 0, 0);
+}
+
+img.image {
+    max-width: 80vw;
+    max-height: 80vh;
+    border-radius: 10px;
+    max-width: 100%; 
+    display: block; 
+}
+
+/* Style buttons */
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
+
+  position: fixed;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+  
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+@media (max-width: 600px) {
+  .btn {
+      font-size: 16px;
+      padding: 10px 25px;
+  }
+}
