@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 import re
+import random
 
 app = FastAPI()
 
@@ -46,7 +47,7 @@ for image in FULL_DIR.glob("*.jpg"):
                 "fhd": f"/{HD_DIR}/{image.name}",
             },
         })
-
+random.shuffle(image_data)
 # Initialize Jinja2 templates
 templates = Jinja2Templates(directory=FRONTEND_DIR / "templates")
 
@@ -76,7 +77,7 @@ async def home(request: Request,
         }
     )
 ###############################
-@app.get("/image/{image_id}")
+@app.get("/photo/{image_id}")
 async def view_image(request: Request, image_id: int):
     """Render image_view.html with a masked URL."""
     image_url = f"/backend/static/images/full/{image_id}.jpg"  # Masked URL (no direct static path)

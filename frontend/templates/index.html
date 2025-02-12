@@ -11,37 +11,41 @@
     href="/frontend/static/favicon-32x32.png"/>  
     <link rel="stylesheet" href="/frontend/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="/frontend/static/css/styles.css">
- 
+    
     <div class="toggle">
         <button id="theme-toggle">
             <i class="fa fa-moon-o" aria-hidden="true"></i>
         </button>
     </div>
-   
-
 </head>
 <body>
     <div class="wrapper">
         <div class="header">
-            <a href="/"><img src="/frontend/static/logo.png" alt="Logo" class="logo-img"></a>
-            <center><h1>Image Gallery</h1></center>
+            <div class="header-right">
+                <a class="active" href="/">Home</a>
+                <a href="http://localhost:5002/" target="_blank">Docs</a>
+                <a href="http://localhost:5001/" target="_blank">FileServer</a>
+            </div>
         </div>
-
         <div class="gallery" id="main">
             <!-- images here -->
                 {% for image in results %}
                     <div class="image-container">
-                        <img src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo"
-                        onclick="window.location.href='{{ request.url_for('view_image',image_id=image.id)}}'">
+                        <img class="image" src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo"
+                        onclick="window.location.href='{{ url_for('view_image',image_id=image.id) }}'">
                     </div>
                 {% endfor %}
-        </div>
+        </div>       
 
         <!-- pagination -->
         <div class="pagination">
+            <a href="{{ request.url_for('home') }}?page=1">
+                <button id="btnPrevious">&laquo; </button>
+            </a>
+
             {% if page > 1 %}
             <a href="{{ request.url_for('home') }}?page={{ page-1 }}">
-                <button id="btnPrevious">&larr; </button>
+                <button id="btnPrevious">Previous</button>
             </a>
             {% endif %}
 
@@ -49,9 +53,12 @@
                     
             {% if page < total_pages %}
             <a href="{{ request.url_for('home') }}?page={{ page+1 }}">
-                <button id="btnNext">&rarr;</button>
+                <button id="btnNext">Next</button>
             </a>
             {% endif %}
+            <a href="{{ request.url_for('home') }}?page={{ total_pages }}">
+                <button id="btnPrevious">&raquo; </button>
+            </a>
         </div>
         <div class="footer">
             <h5><strong><center>&copy;2025</strong></center></h5>
