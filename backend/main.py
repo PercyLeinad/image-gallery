@@ -12,8 +12,9 @@ BACKEND_DIR = Path(__file__).resolve().parent  # backend/
 FRONTEND_DIR = BACKEND_DIR.parent / "frontend"
 
 # Mount static files
-app.mount("/static", StaticFiles(directory=BACKEND_DIR / "static"), name="static")
-app.mount("/photo", StaticFiles(directory=FRONTEND_DIR), name="photo")
+app.mount("/backend", StaticFiles(directory=BACKEND_DIR), name="backend")
+app.mount("/static", StaticFiles(directory=BACKEND_DIR), name="statuc")
+app.mount("/frontend", StaticFiles(directory=FRONTEND_DIR), name="frontend")
 # Allow CORS for all origins
 app.add_middleware(
     CORSMiddleware,
@@ -24,7 +25,7 @@ app.add_middleware(
 )
 
 # Define directories
-BASE_DIR = Path("static/images")
+BASE_DIR = Path('/static/images')
 THUMB_DIR = BASE_DIR / "thumbnails"
 HD_DIR = BASE_DIR / "hd1080"
 FULL_DIR = BASE_DIR / "full"
@@ -77,7 +78,19 @@ async def home(request: Request,
         "results": [{"id": img["id"], "urls": img["urls"]} for img in results],
         }
     )
+###############################
+@app.get("/image/{image_id}")
+async def view_image(request: Request, image_id: int):
+    """Render image_view.html with a masked URL."""
+    image_url = f"/static/images/full/{image_id}.jpg"  # Masked URL (no direct static path)
 
+    return templates.TemplateResponse("image_view.html", {
+        "request": request,
+        "image_url": image_url,
+    })
+
+
+# API
 
 @app.get("/api/")
 async def get_gallery_api(

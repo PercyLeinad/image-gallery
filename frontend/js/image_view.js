@@ -13,4 +13,3 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("download-link").href = imageUrl;
     }
 });
-
