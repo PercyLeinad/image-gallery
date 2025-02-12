@@ -14,16 +14,31 @@
 }
 button#theme-toggle {
     margin-top: 20px;
-    padding: 10px 20px;
+    padding: 5px 10px;
     cursor: pointer;
+    background-color: var(--text-color);
+    color: var(--background-color);    
 }
+
 div.toggle {
+    position: absolute; /* Or fixed, depending on your needs */
+    top: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: Arial, sans-serif;
 }
+
+@media (max-width: 768px) { /* Example breakpoint - adjust as needed */
+    div.toggle {
+        top: 10px; /* Adjust for smaller screens */
+        right: 10px; /* Adjust for smaller screens */
+        font-size: smaller; /* Optional: Adjust font size */
+    }
+}
+
+
 
 
 body {

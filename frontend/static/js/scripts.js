@@ -20,6 +20,17 @@ imgsobserver.forEach(im =>{
 observer.observe(im)
 })
 
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+}
+
+function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') || document.documentElement.getAttribute('data-theme') ||  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); // Check current theme or fallback to system preference
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+}
+
 function applySavedTheme() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -29,24 +40,8 @@ function applySavedTheme() {
         setTheme(prefersDarkScheme ? 'dark' : 'light');
     }
 }
-applySavedTheme()
 
 const themeToggleBtn = document.getElementById('theme-toggle');
-
-function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-}
-
-function toggleTheme() {
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-}
-
-function applySavedTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    setTheme(savedTheme);
-}
-
 themeToggleBtn.addEventListener('click', toggleTheme);
+
+applySavedTheme(); // Call only once, after setting up the event listener

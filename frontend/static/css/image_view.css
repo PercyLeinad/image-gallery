@@ -1,19 +1,27 @@
 body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #111;
-    color: rgb(0, 0, 0);
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Align content in a column */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #111;
+  color: rgb(255, 255, 255); /* Fix black text issue */
+  text-align: center;
 }
 
+/* Image Styling */
 img.image {
-    max-width: 80vw;
-    max-height: 80vh;
-    border-radius: 10px;
-    max-width: 100%; 
-    display: block; 
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2); /* Soft glow */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect */
+img.image:hover {
+  transform: scale(1.02);
 }
 
 /* Style buttons */
@@ -24,22 +32,29 @@ img.image {
   padding: 12px 30px;
   cursor: pointer;
   font-size: 20px;
-
-  position: fixed;
-  bottom: 3px;
-  left: 50%;
-  transform: translateX(-50%);
+  
+  font-weight: bold;
+  border-radius: 8px;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s ease-in-out; 
 }
 
-  
 /* Darker background on mouse-over */
 .btn:hover {
   background-color: RoyalBlue;
 }
 
+
+/* Responsive Adjustments */
 @media (max-width: 600px) {
+  img.image {
+      max-width: 95vw;
+      max-height: 75vh;
+  }
+  
   .btn {
-      font-size: 16px;
-      padding: 10px 25px;
+      font-size: 18px;
+      padding: 12px 28px;
   }
 }
