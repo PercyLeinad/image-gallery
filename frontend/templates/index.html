@@ -8,9 +8,9 @@
     rel="icon"
     type="image/png"
     sizes="32x32"
-    href="/static/favicon-32x32.png"/>  
+    href="/frontend/static/favicon-32x32.png"/>  
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    <link rel="stylesheet" href="/backend/static/css/styles.css">
+    <link rel="stylesheet" href="/frontend/static/css/styles.css">
  
     <div class="toggle">
         <button id="theme-toggle">Toggle Theme</button>
@@ -21,7 +21,7 @@
 <body>
     <div class="wrapper">
         <div class="header">
-            <a href="/"><img src="/backend/static/logo.png" alt="Logo" class="logo-img"></a>
+            <a href="/"><img src="/frontend/static/logo.png" alt="Logo" class="logo-img"></a>
             <center><h1>Image Gallery</h1></center>
         </div>
 
@@ -30,7 +30,7 @@
                 {% for image in results %}
                     <div class="image-container">
                         <img src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo"
-                        onclick="window.location.href='{{ url_for('view_image',image_id=image.id) }}'">
+                        onclick="window.location.href='{{ request.url_for('view_image',image_id=image.id)}}'">
                     </div>
                 {% endfor %}
         </div>
@@ -55,6 +55,6 @@
             <h5><strong><center>&copy;2025</strong></center></h5>
         </div>
     </div>
-    <script src="backend/static/js/scripts.js"></script>
+    <script src="/frontend/static/js/scripts.js"></script>
 </body>
 </html>

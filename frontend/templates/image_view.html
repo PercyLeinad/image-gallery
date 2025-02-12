@@ -7,15 +7,13 @@
     <link rel="stylesheet" href="{{ url_for('frontend', path='css/image_view.css') }}">
 </head>
 <body>
-        <p> Testing </p>
         <div id="item">
-            <!-- insert image here -->
             <img class="image" src="{{ image_url }}" alt="Photo">
         </div>
     
         <a id="download-link" href="{{ image_url }}" download>
             <button class="btn"><i class="fa fa-download"></i> Download</button>
         </a>
-        <!-- <script src="js/image_view.js"></script> -->
+
 </body>
 </html>

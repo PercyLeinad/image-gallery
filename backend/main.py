@@ -13,8 +13,9 @@ FRONTEND_DIR = BACKEND_DIR.parent / "frontend"
 
 # Mount static files
 app.mount("/backend", StaticFiles(directory=BACKEND_DIR), name="backend")
-app.mount("/static", StaticFiles(directory=BACKEND_DIR), name="statuc")
 app.mount("/frontend", StaticFiles(directory=FRONTEND_DIR), name="frontend")
+app.mount("/static", StaticFiles(directory=BACKEND_DIR / "static"), name="static")
+
 # Allow CORS for all origins
 app.add_middleware(
     CORSMiddleware,
@@ -25,15 +26,11 @@ app.add_middleware(
 )
 
 # Define directories
-BASE_DIR = Path('/static/images')
+BASE_DIR = Path('static/images')
 THUMB_DIR = BASE_DIR / "thumbnails"
 HD_DIR = BASE_DIR / "hd1080"
 FULL_DIR = BASE_DIR / "full"
 
-# Ensure directories exist
-FULL_DIR.mkdir(parents=True, exist_ok=True)
-THUMB_DIR.mkdir(parents=True, exist_ok=True)
-HD_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load images from the full directory
 image_data = []
@@ -82,7 +79,7 @@ async def home(request: Request,
 @app.get("/image/{image_id}")
 async def view_image(request: Request, image_id: int):
     """Render image_view.html with a masked URL."""
-    image_url = f"/static/images/full/{image_id}.jpg"  # Masked URL (no direct static path)
+    image_url = f"/backend/static/images/full/{image_id}.jpg"  # Masked URL (no direct static path)
 
     return templates.TemplateResponse("image_view.html", {
         "request": request,
