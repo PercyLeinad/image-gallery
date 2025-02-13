@@ -84,6 +84,7 @@ async def view_image(request: Request, image_id):
     image_url = f"/backend/static/images/full/{image_id}.jpg"  # Masked URL (no direct static path)
 
     return templates.TemplateResponse("image_view.html", {
+        "caption": image_id,
         "request": request,
         "image_url": image_url,
     })

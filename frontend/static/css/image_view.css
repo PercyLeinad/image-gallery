@@ -1,29 +1,56 @@
-body {
-  margin: 0;
+:root{
+	background-color : black;
+	color: white;
+}
+
+.container{
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr auto;
+}
+.main,
+  #item {
+    grid-column: span 1 /auto; 
+    text-align: center;
+}
+
+.main {
   display: flex;
-  flex-direction: column; /* Align content in a column */
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes content apart */
   align-items: center;
-  height: 100vh;
-  background-color: #111;
-  color: rgb(255, 255, 255); /* Fix black text issue */
-  text-align: center;
+  height: 100%; /* Ensure full height */
 }
 
-/* Image Styling */
-img.image {
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2); /* Soft glow */
-  transition: transform 0.3s ease-in-out;
+.download {
+  margin-top: auto; /* Pushes button to the bottom */
+  width: 100%; /* Ensures full width */
+  text-align: center; /* Center the button */
 }
 
-/* Hover effect */
-img.image:hover {
-  transform: scale(1.02);
+@media (max-width: 600px) {
+    .container {
+      display: flex;
+      flex-direction: column-reverse; /* Moves image to the top */
+    }
+  
+  
+  .btn {
+    font-size: 10px;
+    padding: 10px 20px;
 }
+  img.image {
+    max-width: 95vw;
+    max-height: 75vh;
+    margin-top: 0;
+  }
 
+  .main,
+  #item {
+    grid-column: span 1; /* Each div takes full width */
+    text-align: center;
+}
+}
 /* Style buttons */
 .btn {
   background-color: DodgerBlue;
@@ -32,12 +59,7 @@ img.image:hover {
   padding: 12px 30px;
   cursor: pointer;
   font-size: 20px;
-  
-  font-weight: bold;
-  border-radius: 8px;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.2s ease-in-out; 
+
 }
 
 /* Darker background on mouse-over */
@@ -45,31 +67,17 @@ img.image:hover {
   background-color: RoyalBlue;
 }
 
-
-/* Responsive Adjustments */
-@media (max-width: 600px) {
-  img.image {
-      max-width: 95vw;
-      max-height: 75vh;
-  }
-  
-  .btn {
-      font-size: 18px;
-      padding: 12px 28px;
-  }
+/* Image Styling */
+img.image {
+  max-width: 80vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2); /* Soft glow */
+  transition: transform 0.3s ease-in-out;
+  margin: 1.5rem;
 }
 
-
-.caption {
-  position: absolute;
-  bottom: 10px; /* Distance from bottom */
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-  color: white;
-  padding: 5px 10px;
-  font-size: 14px;
-  border-radius: 5px;
-  text-align: center;
-  white-space: nowrap;
-}
+/* Hover effect */
+img.image:hover {
+  transform: scale(1.02);
+} 

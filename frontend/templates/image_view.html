@@ -8,13 +8,20 @@
     <link rel="stylesheet" href="/frontend/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <section class="container">
+        <div class="main">
+            <a href="../" class="fa fa-home"> Home</a>
+            <h2>{{ caption }}</h2>
+            <a id="download-link" href="{{ image_url }}" download>
+                <button class="btn" style="width:100%"><i class="fa fa-download"></i> Download</button>
+            </a>
+        </div>
+
         <div id="item">
             <img class="image" src="{{ image_url }}" alt="Photo">
-        </div>    
-        <a id="download-link" href="{{ image_url }}" download>
-            <button class="btn" style="width:100%"><i class="fa fa-download"></i> Download</button>
-        </a>
+        </div>
+    </section>
 
+    <script src="/frontend/static/js/image_view.js"></script>
 </body>
-        <script src="/frontend/static/js/image_view.js"></script>
 </html>
