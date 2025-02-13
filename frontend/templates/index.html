@@ -30,9 +30,12 @@
         <div class="gallery" id="main">
             <!-- images here -->
                 {% for image in results %}
-                    <div class="image-container">
+                    <div class="image-container" >
                         <img class="image" src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo"
                         onclick="window.location.href='{{ url_for('view_image',image_id=image.id) }}'">
+                        <div class="caption">
+                            {{ image.caption }}
+                        </div>
                     </div>
                 {% endfor %}
         </div>       
