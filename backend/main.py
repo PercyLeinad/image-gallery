@@ -36,11 +36,12 @@ FULL_DIR = BASE_DIR / "full"
 # Load images from the full directory
 image_data = []
 for image in FULL_DIR.glob("*.jpg"):
-    match = re.search(r"(\d+)\.jpg", image.name)  # Allow any number of digits
+    match = re.search(r"(.*)\.jpg", image.name)  # Allow any number of digits
     if match:
         image_id = match.group(1)
         image_data.append({
             "id": image_id,
+            "caption": image_id,
             "urls": {
                 "full": f"/{FULL_DIR}/{image.name}",
                 "thumb": f"/{THUMB_DIR}/{image.name}",
@@ -73,12 +74,12 @@ async def home(request: Request,
         "total": total,
         "total_pages": total_pages,
         "per_page": per_page,
-        "results": [{"id": img["id"], "urls": img["urls"]} for img in results],
+        "results": results
         }
     )
 ###############################
 @app.get("/photo/{image_id}")
-async def view_image(request: Request, image_id: int):
+async def view_image(request: Request, image_id):
     """Render image_view.html with a masked URL."""
     image_url = f"/backend/static/images/full/{image_id}.jpg"  # Masked URL (no direct static path)
 
