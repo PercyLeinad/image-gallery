@@ -33,6 +33,7 @@ HD_DIR = BASE_DIR / "hd1080"
 FULL_DIR = BASE_DIR / "full"
 
 
+
 # Load images from the full directory
 image_data = []
 for image in FULL_DIR.glob("*.jpg"):
@@ -78,13 +79,22 @@ async def home(request: Request,
         }
     )
 ###############################
+def check(i):
+    return bool(re.search(r'^Caption',i))
+
 @app.get("/photo/{image_id}")
 async def view_image(request: Request, image_id):
     """Render image_view.html with a masked URL."""
     image_url = f"/backend/static/images/full/{image_id}.jpg"  # Masked URL (no direct static path)
-
+    
+    caption = ''
+    if check(image_id):
+        caption = image_id
+    else:
+        new_name = re.findall(r'[A-Z][a-z]+',image_id)
+        caption = ' '.join(new_name)
     return templates.TemplateResponse("image_view.html", {
-        "caption": image_id,
+        "caption":caption,
         "request": request,
         "image_url": image_url,
     })
