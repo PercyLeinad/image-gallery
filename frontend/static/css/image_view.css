@@ -65,8 +65,8 @@ img.image:hover {
 @media only screen and (max-width: 768px) {
   .btn {
     font-size: 10px;
-    padding: 10px 20px;
-}
+    padding: 10px 30px;
+  }
   img.image {
     display: block;
     max-width: 90%;
@@ -76,14 +76,21 @@ img.image:hover {
     display: grid;
     gap: 1.5rem;
     grid-template-columns: 1fr;
-    
     grid-template-areas: 
     'one'
     
   }
   .item {grid-area: one;}
   .details {grid-area: one;}
+
 }
+.details p{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .download{
     display: flex;
@@ -92,6 +99,42 @@ img.image:hover {
     justify-content: center;
     font-family: Arial, sans-serif;
 }
-h2{
+h1{
   text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+
+/* Style all font awesome icons */
+.details .fa {
+  padding: 0.5rem;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Add a hover effect if you want */
+.details .fa:hover {
+  opacity: 0.7;
+}
+
+/* Twitter */
+.details .fa-home {
+  background: #3B5998;
+  color: white;
+}
+
+.details .fa-facebook {  
+  background: #55ACEE;
+  color: white;
+}
+.details .fa-telegram {  
+  background: #55ACEE;
+  color: white;
+}
+.details .fa-youtube  {  
+  background: #55ACEE;
+  color: white;
+}
+
