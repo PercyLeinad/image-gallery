@@ -36,13 +36,11 @@ body {
     border-radius: 4px;
 }
 .header a:hover {
-    background-color: yellow;
-    color: green;
-}
-.header a.active {
     background-color: dodgerblue;
     color: white;
+
 }
+
 
 /* Images */
 .gallery{
