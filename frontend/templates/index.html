@@ -27,15 +27,12 @@
                 <a href="http://localhost:5001/" target="_blank">FileServer</a>
             </div>
         </div>
-        <div class="gallery" id="main">
+        <div class="container" id="main">
             <!-- images here -->
                 {% for image in results %}
                     <div class="image-container" >
                         <img class="image" src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo"
                         onclick="window.location.href='{{ url_for('view_image',image_id=image.id) }}'">
-                        <div class="caption">
-                            {{ image.caption }}
-                        </div>
                     </div>
                 {% endfor %}
         </div>       
@@ -43,7 +40,7 @@
         <!-- pagination -->
         <div class="pagination">
             <a href="{{ request.url_for('home') }}?page=1">
-                <button id="btnPrevious">&laquo; </button>
+                <button id="first">&laquo; </button>
             </a>
 
             {% if page > 1 %}
@@ -60,7 +57,7 @@
             </a>
             {% endif %}
             <a href="{{ request.url_for('home') }}?page={{ total_pages }}">
-                <button id="btnPrevious">&raquo; </button>
+                <button id="last">&raquo; </button>
             </a>
         </div>
         <div class="footer">
