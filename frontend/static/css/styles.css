@@ -8,12 +8,7 @@ body {
     color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
     min-height: 100vh;
-    min-width: 100vw;
     text-rendering: optimizeSpeed;
-}
-.wrapper{
-    min-height: 100vh;
-    min-width: 100vw;
 }
 /* header div */
 .header-right {
@@ -128,22 +123,6 @@ div.toggle {
     }
 }
 
-/* SAVE BUTTON */
-#save {
-    background-color: DodgerBlue;
-    border: none;
-    color: white;
-    padding: 12px 30px;
-    cursor: pointer;
-    font-size: 20px;
-}
-  
-  /* Darker background on mouse-over */
-#save:hover {
-    background-color: RoyalBlue;
-}
-
-
 @media only screen and (max-width: 600px) {
     #save {
         background-color: DodgerBlue;
@@ -162,6 +141,7 @@ div.toggle {
     #last{
         display: none;
     }
+
 }
 
 /* PAGINATION */
@@ -216,4 +196,21 @@ div.toggle {
     bottom: 3px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.download{
+    display: flex;
+    position: relative;
+    flex-direction: row-reverse;
+    bottom: 2.5rem;
+    right: 0.5rem;
+    
+}
+.download .btn{
+    opacity: 0.5;
+    padding: 4px 10px;
+}
+.download .btn:hover{
+    opacity: 1;
+    cursor: pointer;
 }

@@ -8,9 +8,10 @@
     rel="icon"
     type="image/png"
     sizes="32x32"
-    href="/frontend/static/favicon-32x32.png"/>  
+    href="/frontend/static/icons/icons8-favicon-32.png"/>  
     <link rel="stylesheet" href="/frontend/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="/frontend/static/css/styles.css">
+    <link rel="stylesheet" href="/frontend/static/css/lightbox.css">
     
     <div class="toggle">
         <button id="theme-toggle">
@@ -31,11 +32,18 @@
             <!-- images here -->
                 {% for image in results %}
                     <div class="image-container" >
-                        <img class="image" src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo"
-                        onclick="window.location.href='{{ url_for('view_image',image_id=image.id) }}'">
+                        <a href="{{ image.urls.fhd }}" data-lightbox="image" data-title="{{ image.caption }}">
+                            <img class="image" src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo">
+                        </a>
+                        <div class="download">
+                            <a id="download-link" href="{{ image.urls.full }}" download>
+                                <button class="btn"><i class="fa fa-download"></i></button>
+                            </a>
+                        </div>
                     </div>
                 {% endfor %}
         </div>       
+
 
         <!-- pagination -->
         <div class="pagination">
@@ -65,5 +73,12 @@
         </div>
     </div>
     <script src="/frontend/static/js/scripts.js"></script>
+    <script src="/frontend/static/js/lightbox-plus-jquery.js"></script>
+    <script>
+        lightbox.option({
+            'disableScrolling':true,
+            'positionFromTop':100
+        })
+    </script>
 </body>
 </html>
