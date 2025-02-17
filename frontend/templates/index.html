@@ -31,16 +31,19 @@
         <div class="container" id="main">
             <!-- images here -->
                 {% for image in results %}
-                    <div class="image-container" >
-                        <a href="{{ image.urls.fhd }}" data-lightbox="image" data-title="{{ image.caption }}">
-                            <img class="image" src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo">
-                        </a>
-                        <div class="download">
-                            <a id="download-link" href="{{ image.urls.full }}" download>
-                                <button class="btn"><i class="fa fa-download"></i></button>
-                            </a>
-                        </div>
+                <div class="image-container" >
+                    <div class="caption">
+                        <p>{{ image.caption }}</p>
                     </div>
+                    <a href="{{ image.urls.fhd }}" data-lightbox="image" data-title="{{ image.caption }}">
+                        <img class="image" src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo">
+                    </a>
+                    <div class="download">
+                        <a id="download-link" href="{{ image.urls.full }}" download>
+                            <button class="btn"><i class="fa fa-download"></i></button>
+                        </a>
+                    </div>
+                </div>
                 {% endfor %}
         </div>       
 
