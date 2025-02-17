@@ -32,16 +32,25 @@ THUMB_DIR = BASE_DIR / "thumbnails"
 HD_DIR = BASE_DIR / "hd1080"
 FULL_DIR = BASE_DIR / "full"
 
+def check(i):
+    return bool(re.search(r'^Caption',i))
 
 # Load images from the full directory
 image_data = []
 for image in FULL_DIR.glob("*.jpg"):
-    match = re.search(r"(.*)\.jpg", image.name)  # Allow any number of digits
+    match = re.search(r"(.*)\.jpg", image.name).group(1)  # Allow any number of digits
+    caption = ''
+    if check(match):
+        caption = match
+    else:
+        new_name = re.findall(r'[A-Z][a-z]+',match)
+        caption = ' '.join(new_name)
+
     if match:
-        image_id = match.group(1)
+        image_id = match
         image_data.append({
             "id": image_id,
-            "caption": image_id,
+            "caption": caption,
             "urls": {
                 "full": f"/{FULL_DIR}/{image.name}",
                 "thumb": f"/{THUMB_DIR}/{image.name}",
@@ -77,18 +86,6 @@ async def home(request: Request,
         "results": results
         }
     )
-###############################
-@app.get("/photo/{image_id}")
-async def view_image(request: Request, image_id):
-    """Render image_view.html with a masked URL."""
-    image_url = f"/backend/static/images/full/{image_id}.jpg"  # Masked URL (no direct static path)
-
-    return templates.TemplateResponse("image_view.html", {
-        "caption": image_id,
-        "request": request,
-        "image_url": image_url,
-    })
-
 
 # API
 @app.get("/api/")

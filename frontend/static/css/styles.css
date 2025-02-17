@@ -7,6 +7,8 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
 }
 /* header div */
 .header-right {
@@ -25,28 +27,26 @@ body {
     font-size: 1rem;
     line-height: 25px;
     border-radius: 4px;
+
 }
 .header a:hover {
-    background-color: yellow;
-    color: green;
-}
-.header a.active {
     background-color: dodgerblue;
     color: white;
+
 }
 
+
 /* Images */
-.gallery{
+.container{
     display: grid;
     grid-gap: 5px;
-    border-bottom: 2px solid var(--color);
     grid-template-columns: repeat(5,1fr);
 }
 @media only screen and (max-width: 600px) {
-	.gallery {
+	.container {
         display: grid;
 	  	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-	  	grid-gap: 5px;
+	  	gap: 5px;
 
     }
     h1 {
@@ -54,30 +54,6 @@ body {
         font-size: 2em; 
 		text-align: center;
     }
-}
-
-.image-container {
-    text-align: center; /* Centers the caption */
-    width: 100%; /* Ensures uniform layout */
-    position: relative;
-    display: inline-block;
-    overflow: hidden; /* Prevents overflow */
-}
-
-.caption {
-    position: absolute;
-    bottom: 10px; /* Adjust position */
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 5px 10px;
-    font-size: 1.5rem;
-    border-radius: 5px;
-    text-align: center;
-    white-space: nowrap;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.3s ease-in-out; /* Smooth fade-in */
 }
 
 /* Show caption when hovering over .image-container */
@@ -105,8 +81,8 @@ body {
 
 /* ensures placeholders start full*/
 [data-src]{   
-	min-width: auto;
-	min-height: 200px;
+	min-width: 150px;
+	min-height: 150px;
 	opacity: 1;
 }
 
@@ -125,6 +101,7 @@ div.toggle {
     left: 20px; /* Adjust as needed */
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }  
 
 @media screen and (max-width: 768px) {
@@ -146,22 +123,6 @@ div.toggle {
     }
 }
 
-/* SAVE BUTTON */
-#save {
-    background-color: DodgerBlue;
-    border: none;
-    color: white;
-    padding: 12px 30px;
-    cursor: pointer;
-    font-size: 20px;
-}
-  
-  /* Darker background on mouse-over */
-#save:hover {
-    background-color: RoyalBlue;
-}
-
-
 @media only screen and (max-width: 600px) {
     #save {
         background-color: DodgerBlue;
@@ -176,6 +137,11 @@ div.toggle {
     #save:hover {
     background-color: RoyalBlue;
     }
+    #first,
+    #last{
+        display: none;
+    }
+
 }
 
 /* PAGINATION */
@@ -188,6 +154,7 @@ div.toggle {
 	flex-wrap: nowrap;
 	justify-content: center;
 	height: 40px; 
+    overflow: hidden;
 }
 
 #page{
@@ -203,7 +170,9 @@ div.toggle {
 	
 }
 #btnNext,
-#btnPrevious{
+#btnPrevious,
+#first,
+#last   {
   background: transparent;
   color: hwb(14 0% 0%);
   padding: 5px 30px;
@@ -227,4 +196,21 @@ div.toggle {
     bottom: 3px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.download{
+    display: flex;
+    position: relative;
+    flex-direction: row-reverse;
+    bottom: 2.5rem;
+    right: 0.5rem;
+    
+}
+.download .btn{
+    opacity: 0.5;
+    padding: 4px 10px;
+}
+.download .btn:hover{
+    opacity: 1;
+    cursor: pointer;
 }
