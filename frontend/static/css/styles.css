@@ -10,31 +10,11 @@ body{
     min-height: 100vh;
     text-rendering: optimizeSpeed;
 }
-/* header div */
-.header-right {
-    float: right;
-}
-.header {
-    overflow: hidden;
-    padding: 15px 10px;
-}
-.header a {
-    float: left;
-    color: var(--text-color);
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    font-size: 1rem;
-    line-height: 25px;
-    border-radius: 4px;
+.header{
+    display: flex;
+    justify-content: center;
 
 }
-.header a:hover {
-    background-color: dodgerblue;
-    color: white;
-
-}
-
 
 /* Images */
 .container{
@@ -80,7 +60,7 @@ body{
 
 /* theme-toggle button */
 button#theme-toggle {
-    margin-top: 20px;
+    margin-top: 1px;
     padding: 5px 10px;
     cursor: pointer;
     background-color: var(--text-color);
@@ -89,28 +69,18 @@ button#theme-toggle {
 
 div.toggle {
     position: relative; /* Or fixed, depending on your needs */
-    top: 20px; /* Adjust as needed */
+    top: 1px; /* Adjust as needed */
     left: 20px; /* Adjust as needed */
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    margin-bottom: 1px;
 }  
-
-@media screen and (max-width: 768px) {
-    .header a {
-      float: none;
-      display: block;
-      text-align: left;
-    }
-    .header-right {
-      float: none;
-    }
-}
 
 
 @media (max-width: 768px) { /* Example breakpoint - adjust as needed */
     div.toggle {
-        top: 10px; /* Adjust for smaller screens */
+        top: 1px; /* Adjust for smaller screens */
         left: 10px; /* Adjust for smaller screens */
     }
 }
@@ -209,9 +179,10 @@ div.toggle {
     display: flex;
     flex-direction: row;
     position: absolute;
-    white-space: nowrap;
+    flex-wrap: wrap;
     z-index: 1;
     opacity: 0;
+    min-width: fit-content;
 }
 
 .caption p{
@@ -227,9 +198,10 @@ div.toggle {
     opacity: 1;
 }
 
-
-
-
-
+@media only screen and (max-width: 600px) {
+    .caption p{
+        font-size: 0.9rem;
+    }
+}
 
 
