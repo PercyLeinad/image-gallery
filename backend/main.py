@@ -27,34 +27,33 @@ app.add_middleware(
 )
 
 # Define directories
-BASE_DIR = Path('static/images')
+BASE_DIR = Path('static/photos')
 THUMB_DIR = BASE_DIR / "thumbnails"
-HD_DIR = BASE_DIR / "hd1080"
-FULL_DIR = BASE_DIR / "full"
+HD_DIR = BASE_DIR / "hd"
+FULL_DIR = BASE_DIR / "original"
 
 def check(i):
     return bool(re.search(r'^Caption',i))
-
 # Load images from the full directory
 image_data = []
 for image in FULL_DIR.glob("*.jpg"):
-    match = re.search(r"(.*)\.jpg", image.name).group(1)  # Allow any number of digits
+    file_name = re.search(r"(.*)\.jpg|", image.name).group(1)  # Allow any number of digits
     caption = ''
-    if check(match):
-        caption = match
+    if check(file_name):
+        caption = file_name
     else:
-        new_name = re.findall(r'[A-Z][a-z]+',match)
+        new_name = re.findall(r'[A-Z][a-z]+',file_name)
         caption = ' '.join(new_name)
 
-    if match:
-        image_id = match
+    if file_name:
+        image_id = file_name
         image_data.append({
             "id": image_id,
             "caption": caption,
             "urls": {
-                "full": f"/{FULL_DIR}/{image.name}",
-                "thumb": f"/{THUMB_DIR}/{image.name}",
-                "fhd": f"/{HD_DIR}/{image.name}",
+                "original": f"/{FULL_DIR}/{file_name}.jpg",
+                "thumb": f"/{THUMB_DIR}/{file_name}.webp",
+                "hd": f"/{HD_DIR}/{file_name}.webp",
             },
         })
 random.shuffle(image_data)

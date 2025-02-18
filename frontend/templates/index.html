@@ -35,11 +35,11 @@
                     <div class="caption">
                         <p>{{ image.caption }}</p>
                     </div>
-                    <a href="{{ image.urls.fhd }}" data-lightbox="image" data-title="{{ image.caption }}">
-                        <img class="image" src="{{ image.urls.thumb }}" data-src="{{ image.urls.fhd }}" alt="Photo">
+                    <a href="{{ image.urls.hd }}" data-lightbox="image" data-title="{{ image.caption }}">
+                        <img class="image" src="{{ image.urls.thumb }}" data-src="{{ image.urls.hd }}" alt="Photo">
                     </a>
                     <div class="download">
-                        <a id="download-link" href="{{ image.urls.full }}" download>
+                        <a id="download-link" href="{{ image.urls.original }}" download>
                             <button class="btn"><i class="fa fa-download"></i></button>
                         </a>
                     </div>
