@@ -62,13 +62,10 @@ templates = Jinja2Templates(directory=FRONTEND_DIR / "templates")
 
 @app.get("/")
 async def home(request: Request,
-    page: int = Query(1, alias="page", ge=1),
-    per_page: int = Query(20, alias="per_page", ge=1)  # No max limit in Query
-):
+    page: int = Query(1, alias="page", ge=1)):
     """Fetch paginated image data from the gallery API."""
     
-    # Reset per_page to 20 if it exceeds the limit
-    per_page = min(per_page, 20)
+    per_page = 20
 
     total = len(image_data)
     total_pages = (total // per_page) + (1 if total % per_page > 0 else 0)
@@ -81,7 +78,6 @@ async def home(request: Request,
         "page":page , 
         "total": total,
         "total_pages": total_pages,
-        "per_page": per_page,
         "results": results
         }
     )
