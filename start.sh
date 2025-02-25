@@ -13,4 +13,4 @@ if [ -d "venv" ]; then
 fi
 
 # Run Uvicorn server
-uvicorn main:app --host $HOST --port $PORT --reload
+uvicorn main:app --host $HOST --port $PORT --reload --proxy-headers
