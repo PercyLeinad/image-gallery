@@ -1,6 +1,3 @@
 .ipynb_checkpoints
-*.jpg
-*.png
-*.webp
 __pycache__
 
